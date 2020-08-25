@@ -56,7 +56,7 @@ The app in itself is a simple movie searching app. Clicking the movie list item 
 
 # Package Structure
     
-    com.shashank.moviefindermvvm    # Root Package
+    dev.atharvakulkarni.moviefinder    # Root Package
     .
     ├── data                # For data handling.
     │   ├── model           # Model classes
