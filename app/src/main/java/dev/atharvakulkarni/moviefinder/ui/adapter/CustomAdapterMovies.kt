@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dev.atharvakulkarni.moviefinder.R
+import dev.atharvakulkarni.moviefinder.data.model.SearchResults
+import dev.atharvakulkarni.moviefinder.util.show
 
 
 class CustomAdapterMovies : RecyclerView.Adapter<RecyclerView.ViewHolder>()
@@ -37,6 +39,27 @@ class CustomAdapterMovies : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         }
     }
 
+    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    {
+        private val imagePoster: ImageView = view.findViewById(R.id.image_poster)
+        private val textTitle: TextView = view.findViewById(R.id.text_title)
+        private val textYear: TextView = view.findViewById(R.id.text_year)
+
+        @SuppressLint("SetTextI18n")
+        fun bindItems(movie: SearchResults.SearchItem)
+        {
+            textTitle.text = movie.title
+            textYear.text = movie.year
+            Glide.with(imagePoster.context).load(movie.poster)
+                .centerCrop()
+                .thumbnail(0.5f)
+                .placeholder(R.drawable.ic_launcher_background)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imagePoster)
+        }
+    }
+
     override fun getItemCount(): Int
     {
         return moviesList.size
@@ -45,16 +68,10 @@ class CustomAdapterMovies : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)
     {
         if (holder is MovieViewHolder)
-        {
             if(moviesList[position] != null)
-            {
                 holder.bindItems(moviesList[position]!!)
-            }
-        }
-        else if (holder is LoadingViewHolder)
-        {
-            holder.showLoadingView()
-        }
+            else if (holder is LoadingViewHolder)
+                holder.showLoadingView()
     }
 
     override fun getItemViewType(position: Int): Int
@@ -72,34 +89,11 @@ class CustomAdapterMovies : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             moviesList.addAll(newMoviesList)
         }
         else
-        {
             moviesList.add(newMoviesList)
-        }
         notifyDataSetChanged()
     }
 
     fun getData() = moviesList
-
-    class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
-    {
-        private val imagePoster: ImageView = itemView.findViewById(R.id.image_poster)
-        private val textTitle: TextView = itemView.findViewById(R.id.text_title)
-        private val textYear: TextView = itemView.findViewById(R.id.text_year)
-
-        @SuppressLint("SetTextI18n")
-        fun bindItems(movie: SearchResults.SearchItem)
-        {
-            textTitle.text = movie.title
-            textYear.text = movie.year
-            Glide.with(imagePoster.context).load(movie.poster)
-                .centerCrop()
-                .thumbnail(0.5f)
-                .placeholder(R.drawable.ic_launcher_background)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imagePoster)
-        }
-    }
 
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
@@ -111,5 +105,3 @@ class CustomAdapterMovies : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         }
     }
 }
-
-
