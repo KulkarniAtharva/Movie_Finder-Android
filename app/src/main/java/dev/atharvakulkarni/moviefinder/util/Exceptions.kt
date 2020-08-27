@@ -1,4 +1,4 @@
-package com.shashank.moviefindermvvm.util
+package dev.atharvakulkarni.moviefinder.util
 
 import java.io.IOException
 

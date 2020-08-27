@@ -19,20 +19,21 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.shashank.moviefindermvvm.util.getColorRes
-import com.shashank.moviefindermvvm.util.showToast
 import dev.atharvakulkarni.moviefinder.databinding.ActivityHomeBinding
 import dev.atharvakulkarni.moviefinder.ui.moviedetail.MovieDetailScrollingActivity
 import dev.atharvakulkarni.moviefinder.util.*
-import kotlinx.android.synthetic.main.activity_home.view.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.generic.instance
+import org.kodein.di.android.kodein
 
-class HomeActivity : AppCompatActivity()
+class HomeActivity : AppCompatActivity(), KodeinAware
 {
     companion object
     {
         const val ANIMATION_DURATION = 1000.toLong()
     }
 
+    override val kodein by kodein()
     private lateinit var searchView: SearchView
     private lateinit var viewModel: HomeViewModel
     private val factory: HomeViewModelFactory by instance()
@@ -117,7 +118,7 @@ class HomeActivity : AppCompatActivity()
     {
         menuInflater.inflate(R.menu.search, menu)
 
-        searchView = menu.findItem(R.id.search).actionView as SearchView
+        searchView = menu?.findItem(R.id.search)?.actionView as SearchView
 
         searchView.apply{
             queryHint = "Search"

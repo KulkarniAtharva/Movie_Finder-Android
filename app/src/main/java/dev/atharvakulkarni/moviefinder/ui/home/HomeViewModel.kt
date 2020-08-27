@@ -3,12 +3,16 @@ package dev.atharvakulkarni.moviefinder.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.shashank.moviefindermvvm.util.ApiException
-import com.shashank.moviefindermvvm.util.NoInternetException
+import androidx.lifecycle.viewModelScope
 import dev.atharvakulkarni.moviefinder.data.model.SearchResults
 import dev.atharvakulkarni.moviefinder.data.repositories.HomeRepository
+import dev.atharvakulkarni.moviefinder.util.ApiException
 import dev.atharvakulkarni.moviefinder.util.AppConstant
+import dev.atharvakulkarni.moviefinder.util.NoInternetException
 import dev.atharvakulkarni.moviefinder.util.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(private val repository: HomeRepository) : ViewModel()
 {

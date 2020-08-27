@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.shashank.moviefindermvvm.util
+package dev.atharvakulkarni.moviefinder.util
 
 import android.app.Activity
 import android.widget.Toast
