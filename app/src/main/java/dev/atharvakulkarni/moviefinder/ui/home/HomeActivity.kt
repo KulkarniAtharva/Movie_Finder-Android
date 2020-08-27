@@ -118,7 +118,9 @@ class HomeActivity : AppCompatActivity(), KodeinAware
     {
         menuInflater.inflate(R.menu.search, menu)
 
-        searchView = menu?.findItem(R.id.search)?.actionView as SearchView
+        if (menu != null) {
+            searchView = menu.findItem(R.id.search).actionView as SearchView
+        }
 
         searchView.apply{
             queryHint = "Search"
