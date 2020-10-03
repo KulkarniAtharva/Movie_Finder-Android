@@ -8,7 +8,7 @@
 
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Shashank02051997/MovieFinderUsingMVVM-Android) 
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Shashank02051997/MovieFinderUsingMVVM-Android) 
-![GitHub last commit](https://img.shields.io/github/last-commit/Shashank02051997/MovieFinderUsingMVVM-Android)  
+![GitHub last commit](https://img.shields.io/github/last-commit/Shashank02051997/MovieFinderUsingMVVM-Android)   
 ![GitHub issues](https://img.shields.io/github/issues-raw/Shashank02051997/MovieFinderUsingMVVM-Android) 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](Shashank02051997/MovieFinderUsingMVVM-Android)
 
