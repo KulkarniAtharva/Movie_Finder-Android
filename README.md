@@ -1,5 +1,5 @@
 # Movie Finder 
-
+ 
 ![Github Followers](https://img.shields.io/github/followers/KulkarniAtharva?label=Follow&style=social)
 ![GitHub stars](https://img.shields.io/github/stars/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
