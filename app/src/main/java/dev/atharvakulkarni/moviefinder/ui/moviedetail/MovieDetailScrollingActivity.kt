@@ -8,19 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dev.atharvakulkarni.moviefinder.R
 import dev.atharvakulkarni.moviefinder.databinding.ActivityMovieDetailScrollingBinding
 import dev.atharvakulkarni.moviefinder.ui.home.HomeActivity
 import dev.atharvakulkarni.moviefinder.util.*
 import kotlinx.android.synthetic.main.activity_movie_detail_scrolling.*
 import org.kodein.di.KodeinAware
-import org.kodein.di.generic.instance
 import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
-{
+class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware {
     override val kodein by kodein()
     private lateinit var dataBind: ActivityMovieDetailScrollingBinding
     private lateinit var viewModel: MovieDetailViewModel
@@ -28,8 +25,7 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
     private var movieTitle = ""
     private var moviePoster = ""
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBind = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail_scrolling)
         setSupportActionBar(toolbar)
@@ -39,48 +35,35 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
         setupAPICall()
     }
 
-    override fun onSupportNavigateUp(): Boolean
-    {
+    override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
     }
 
-    private fun setupUI()
-    {
+    private fun setupUI() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         if (intent.hasExtra(AppConstant.INTENT_TITLE) && intent.getStringExtra(AppConstant.INTENT_TITLE) != null)
             movieTitle = intent.getStringExtra(AppConstant.INTENT_TITLE)!!
         if (intent.hasExtra(AppConstant.INTENT_POSTER) && intent.getStringExtra(AppConstant.INTENT_POSTER) != null)
             moviePoster = intent.getStringExtra(AppConstant.INTENT_POSTER)!!
         dataBind.toolbar.title = movieTitle
-        Glide.with(this).load(moviePoster)
-            .centerCrop()
-            .thumbnail(0.5f)
-            .placeholder(R.drawable.ic_launcher_background)
-            .centerCrop()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(dataBind.imagePoster)
+        loadImage(moviePoster, dataBind.imagePoster)
     }
 
-    private fun setupViewModel()
-    {
+    private fun setupViewModel() {
         viewModel = ViewModelProvider(this, factory).get(MovieDetailViewModel::class.java)
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setupAPICall()
-    {
+    private fun setupAPICall() {
         viewModel.movieDetailLiveData.observe(this, Observer
         { state ->
-            when (state)
-            {
-                is State.Loading ->
-                {
+            when (state) {
+                is State.Loading -> {
                     dataBind.progressBar.show()
                     dataBind.cardViewMovieDetail.hide()
                 }
-                is State.Success ->
-                {
+                is State.Success -> {
                     dataBind.progressBar.hide()
                     dataBind.cardViewMovieDetail.show()
                     state.data.let {
@@ -95,8 +78,7 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
                         dataBind.textImdbRating.text = "IMBD Rating: ${it.imdbrating}"
                     }
                 }
-                is State.Error ->
-                {
+                is State.Error -> {
                     dataBind.progressBar.hide()
                     dataBind.cardViewMovieDetail.hide()
                     showToast(state.message)
@@ -106,19 +88,15 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
         getMoviesDetail(movieTitle)
     }
 
-    private fun handleNetworkChanges()
-    {
+    private fun handleNetworkChanges() {
         NetworkUtils.getNetworkLiveData(applicationContext).observe(this, Observer { isConnected ->
-            if (!isConnected)
-            {
+            if (!isConnected) {
                 dataBind.textViewNetworkStatus.text = getString(R.string.text_no_connectivity)
-                dataBind.networkStatusLayout.apply{
+                dataBind.networkStatusLayout.apply {
                     show()
                     setBackgroundColor(getColorRes(R.color.colorStatusNotConnected))
                 }
-            }
-            else
-            {
+            } else {
                 if (viewModel.movieDetailLiveData.value is State.Error)
                     getMoviesDetail(movieTitle)
                 dataBind.textViewNetworkStatus.text = getString(R.string.text_connectivity)
@@ -129,10 +107,8 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
                         .alpha(1f)
                         .setStartDelay(HomeActivity.ANIMATION_DURATION)
                         .setDuration(HomeActivity.ANIMATION_DURATION)
-                        .setListener(object : AnimatorListenerAdapter()
-                        {
-                            override fun onAnimationEnd(animation: Animator)
-                            {
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
                                 hide()
                             }
                         })
@@ -141,8 +117,7 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
         })
     }
 
-    private fun getMoviesDetail(movieTitle: String)
-    {
+    private fun getMoviesDetail(movieTitle: String) {
         viewModel.getMovieDetail(movieTitle)
     }
 }
