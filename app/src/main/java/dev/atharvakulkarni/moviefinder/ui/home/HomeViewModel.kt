@@ -14,8 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeViewModel(private val repository: HomeRepository) : ViewModel()
-{
+class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
     private var pageIndex = 0
     private var totalMovies = 0
     private var movieList = ArrayList<SearchResults.SearchItem?>()
@@ -34,54 +33,45 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel()
 
     private lateinit var movieResponse: SearchResults
 
-    init
-    {
+    init {
         _loadMoreListLiveData.value = false
         _movieNameLiveData.value = ""
     }
 
-    fun getMovies()
-    {
-        if (pageIndex == 1)
-        {
+    fun getMovies() {
+        if (pageIndex == 1) {
             movieList.clear()
             _moviesLiveData.postValue(State.loading())
-        }
-        else
-        {
+        } else {
             if (movieList.isNotEmpty() && movieList.last() == null)
                 movieList.removeAt(movieList.size - 1)
         }
         viewModelScope.launch(Dispatchers.IO)
         {
-            if (_movieNameLiveData.value != null && _movieNameLiveData.value!!.isNotEmpty())
-            {
-                try
-                {
-                    movieResponse = repository.getMovies(_movieNameLiveData.value!!, AppConstant.API_KEY, pageIndex)
+            if (_movieNameLiveData.value != null && _movieNameLiveData.value!!.isNotEmpty()) {
+                try {
+                    movieResponse = repository.getMovies(
+                        _movieNameLiveData.value!!,
+                        AppConstant.API_KEY,
+                        pageIndex
+                    )
                     withContext(Dispatchers.Main)
                     {
-                        if (movieResponse.response == AppConstant.SUCCESS)
-                        {
+                        if (movieResponse.response == AppConstant.SUCCESS) {
                             movieList.addAll(movieResponse.search)
                             totalMovies = movieResponse.totalResults.toInt()
                             _moviesLiveData.postValue(State.success(movieList))
                             _loadMoreListLiveData.value = false
-                        }
-                        else
+                        } else
                             _moviesLiveData.postValue(State.error(movieResponse.error))
                     }
-                }
-                catch (e: ApiException)
-                {
+                } catch (e: ApiException) {
                     withContext(Dispatchers.Main)
                     {
                         _moviesLiveData.postValue(State.error(e.message!!))
                         _loadMoreListLiveData.value = false
                     }
-                }
-                catch (e: NoInternetException)
-                {
+                } catch (e: NoInternetException) {
                     withContext(Dispatchers.Main)
                     {
                         _moviesLiveData.postValue(State.error(e.message!!))
@@ -92,22 +82,23 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel()
         }
     }
 
-    fun searchMovie(query: String)
-    {
+    fun searchMovie(query: String) {
         _movieNameLiveData.value = query
         pageIndex = 1
         totalMovies = 0
         getMovies()
     }
 
-    fun loadMore()
-    {
+    fun loadMore() {
         pageIndex++
         getMovies()
     }
 
-    fun checkForLoadMoreItems(visibleItemCount: Int, totalItemCount: Int, firstVisibleItemPosition: Int)
-    {
+    fun checkForLoadMoreItems(
+        visibleItemCount: Int,
+        totalItemCount: Int,
+        firstVisibleItemPosition: Int
+    ) {
         if (!_loadMoreListLiveData.value!! && (totalItemCount < totalMovies))
             if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0)
                 _loadMoreListLiveData.value = true
