@@ -26,9 +26,7 @@ open class RecyclerItemClickListener(context: Context, private val listener: OnI
     {
         val childView = view.findChildViewUnder(e.x, e.y)
         if (childView != null && mGestureDetector.onTouchEvent(e))
-        {
             listener.onItemClick(childView, view.getChildAdapterPosition(childView))
-        }
 
         Log.i("INFO", e.toString())
         return false
@@ -38,6 +36,5 @@ open class RecyclerItemClickListener(context: Context, private val listener: OnI
 
     override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean)
     {
-
     }
 }

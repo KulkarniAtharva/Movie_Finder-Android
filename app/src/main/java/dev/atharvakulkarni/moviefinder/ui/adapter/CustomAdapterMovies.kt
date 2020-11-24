@@ -14,7 +14,6 @@ import dev.atharvakulkarni.moviefinder.R
 import dev.atharvakulkarni.moviefinder.data.model.SearchResults
 import dev.atharvakulkarni.moviefinder.util.show
 
-
 class CustomAdapterMovies : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     companion object

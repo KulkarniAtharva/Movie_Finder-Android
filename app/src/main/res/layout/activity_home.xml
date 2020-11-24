@@ -78,5 +78,7 @@
                 android:textColor="#000000"
                 android:textSize="24sp" />
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
