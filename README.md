@@ -1,17 +1,21 @@
 # Movie Finder 
+ 
+![Github Followers](https://img.shields.io/github/followers/KulkarniAtharva?label=Follow&style=social)
+![GitHub stars](https://img.shields.io/github/stars/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
+![GitHub forks](https://img.shields.io/github/forks/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/KulkarniAtharva?label=Follow&style=social)
 
-![Github Followers](https://img.shields.io/github/followers/Shashank02051997?label=Follow&style=social)
-![GitHub stars](https://img.shields.io/github/stars/Shashank02051997/MovieFinderUsingMVVM-Android?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Shashank02051997/MovieFinderUsingMVVM-Android?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/Shashank02051997/MovieFinderUsingMVVM-Android?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/shashank020597?label=Follow&style=social)
-
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Shashank02051997/MovieFinderUsingMVVM-Android) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Shashank02051997/MovieFinderUsingMVVM-Android) ![GitHub last commit](https://img.shields.io/github/last-commit/Shashank02051997/MovieFinderUsingMVVM-Android)  ![GitHub issues](https://img.shields.io/github/issues-raw/Shashank02051997/MovieFinderUsingMVVM-Android) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](Shashank02051997/MovieFinderUsingMVVM-Android)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Shashank02051997/MovieFinderUsingMVVM-Android) 
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Shashank02051997/MovieFinderUsingMVVM-Android) 
+![GitHub last commit](https://img.shields.io/github/last-commit/Shashank02051997/MovieFinderUsingMVVM-Android)   
+![GitHub issues](https://img.shields.io/github/issues-raw/Shashank02051997/MovieFinderUsingMVVM-Android) 
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](Shashank02051997/MovieFinderUsingMVVM-Android)
 
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=plastic)](https://android-arsenal.com/api?level=21)
-<a href="https://www.linkedin.com/in/shashank-singhal-a87729b5/">
+<a href="https://www.linkedin.com/in/atharvakulkarni2204">
     <img src="https://img.shields.io/badge/Support-Recommed%2FEndorse%20me%20on%20Linkedin-yellow?style=for-the-badge&logo=linkedin" alt="Recommend me on LinkedIn" /></a>
 
 
@@ -83,7 +87,7 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 ## Contributing
 
 Please fork this repository and contribute back using
-[pull requests](https://github.com/Shashank02051997/MovieFinderUsingMVVM-Android/pulls).
+[pull requests](https://github.com/KulkarniAtharva/Movie_Finder-Android/pulls).
 
 Any contributions, large or small, major features, bug fixes, are welcomed and appreciated
 but will be thoroughly reviewed .
@@ -126,4 +130,6 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.```
+SOFTWARE.
+
+```
