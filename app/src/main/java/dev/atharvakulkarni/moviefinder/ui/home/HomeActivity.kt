@@ -3,13 +3,16 @@ package dev.atharvakulkarni.moviefinder.ui.home
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.View
-import android.widget.SearchView
+
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -43,6 +46,7 @@ class HomeActivity : AppCompatActivity(), KodeinAware
     {
         super.onCreate(savedInstanceState)
         dataBind = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        searchView = findViewById(R.id.search_view)
         setupViewModel()
         setupUI()
         initializeObserver()
@@ -50,7 +54,7 @@ class HomeActivity : AppCompatActivity(), KodeinAware
         setupAPICall()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean
+   /* override fun onCreateOptionsMenu(menu: Menu): Boolean
     {
         menuInflater.inflate(R.menu.search, menu)
         searchView = menu.findItem(R.id.search).actionView as SearchView
@@ -61,23 +65,24 @@ class HomeActivity : AppCompatActivity(), KodeinAware
         }
         search(searchView)
         return true
-    }
+    }*/
 
     private fun setupUI()
     {
         customAdapterMovies = CustomAdapterMovies()
-        dataBind.recyclerViewMovies.apply
-        {
+        dataBind.recyclerViewMovies.apply{
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
             adapter = customAdapterMovies
             addOnItemTouchListener(
                 RecyclerItemClickListener(
                     applicationContext,
-                    object : RecyclerItemClickListener.OnItemClickListener {
+                    object : RecyclerItemClickListener.OnItemClickListener
+                    {
                         override fun onItemClick(view: View, position: Int)
                         {
-                            if (customAdapterMovies.getData().isNotEmpty()) {
+                            if (customAdapterMovies.getData().isNotEmpty())
+                            {
                                 val searchItem = customAdapterMovies.getData()[position]
                                 searchItem?.let {
                                     val intent =
@@ -89,15 +94,14 @@ class HomeActivity : AppCompatActivity(), KodeinAware
                                     intent.putExtra(AppConstant.INTENT_TITLE, it.title)
                                     startActivity(intent)
                                 }
-
                             }
                         }
-
                     })
             )
             addOnScrollListener(object : RecyclerView.OnScrollListener()
             {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int)
+                {
                     super.onScrolled(recyclerView, dx, dy)
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
                     val visibleItemCount = layoutManager!!.childCount
@@ -109,22 +113,27 @@ class HomeActivity : AppCompatActivity(), KodeinAware
                         firstVisibleItemPosition
                     )
                 }
-
             })
         }
+
+        //getWindow().setStatusBarColor(Color.WHITE);
+
+        search(searchView);
     }
 
-    private fun setupViewModel() {
+    private fun setupViewModel()
+    {
         viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
-
     }
 
-    private fun initializeObserver() {
+    private fun initializeObserver()
+    {
         viewModel.movieNameLiveData.observe(this, Observer {
             Log.i("Info", "Movie Name = $it")
         })
         viewModel.loadMoreListLiveData.observe(this, Observer {
-            if (it) {
+            if (it)
+            {
                 customAdapterMovies.setData(null)
                 Handler().postDelayed({
                     viewModel.loadMore()
@@ -133,41 +142,49 @@ class HomeActivity : AppCompatActivity(), KodeinAware
         })
     }
 
-    private fun setupAPICall() {
+    private fun setupAPICall()
+    {
         viewModel.moviesLiveData.observe(this, Observer { state ->
-            when (state) {
-                is State.Loading -> {
+            when (state)
+            {
+                is State.Loading ->
+                {
                     dataBind.recyclerViewMovies.hide()
-                    dataBind.linearLayoutSearch.hide()
+                   // dataBind.linearLayoutSearch.hide()
                     dataBind.progressBar.show()
                 }
-                is State.Success -> {
+                is State.Success ->
+                {
                     dataBind.recyclerViewMovies.show()
-                    dataBind.linearLayoutSearch.hide()
+                  //  dataBind.linearLayoutSearch.hide()
                     dataBind.progressBar.hide()
                     customAdapterMovies.setData(state.data)
                 }
-                is State.Error -> {
+                is State.Error ->
+                {
                     dataBind.progressBar.hide()
                     showToast(state.message)
                 }
             }
         })
-
     }
 
-    private fun handleNetworkChanges() {
+    private fun handleNetworkChanges()
+    {
         NetworkUtils.getNetworkLiveData(applicationContext).observe(this, Observer { isConnected ->
-            if (!isConnected) {
+            if (!isConnected)
+            {
                 dataBind.textViewNetworkStatus.text = getString(R.string.text_no_connectivity)
                 dataBind.networkStatusLayout.apply {
                     show()
                     setBackgroundColor(getColorRes(R.color.colorStatusNotConnected))
                 }
-            } else {
-                if (viewModel.moviesLiveData.value is State.Error || customAdapterMovies.itemCount == 0) {
+            }
+            else
+            {
+                if (viewModel.moviesLiveData.value is State.Error || customAdapterMovies.itemCount == 0)
                     viewModel.getMovies()
-                }
+
                 dataBind.textViewNetworkStatus.text = getString(R.string.text_connectivity)
                 dataBind.networkStatusLayout.apply {
                     setBackgroundColor(getColorRes(R.color.colorStatusConnected))
@@ -176,8 +193,10 @@ class HomeActivity : AppCompatActivity(), KodeinAware
                         .alpha(1f)
                         .setStartDelay(ANIMATION_DURATION)
                         .setDuration(ANIMATION_DURATION)
-                        .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator) {
+                        .setListener(object : AnimatorListenerAdapter()
+                        {
+                            override fun onAnimationEnd(animation: Animator)
+                            {
                                 hide()
                             }
                         })
@@ -186,21 +205,22 @@ class HomeActivity : AppCompatActivity(), KodeinAware
         })
     }
 
-    private fun search(searchView: SearchView) {
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
+    private fun search(searchView: SearchView)
+    {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener
+        {
+            override fun onQueryTextSubmit(query: String): Boolean
+            {
                 dismissKeyboard(searchView)
                 searchView.clearFocus()
                 viewModel.searchMovie(query)
                 return true
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
+            override fun onQueryTextChange(newText: String): Boolean
+            {
                 return false
             }
         })
     }
-
-
 }
