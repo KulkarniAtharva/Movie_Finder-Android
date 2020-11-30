@@ -4,7 +4,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/KulkarniAtharva/MovieFinderUsingMVVM-Android?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/KulkarniAtharva?label=Follow&style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/KulkarniAtharva?label=Follow&style=social) 
 
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Shashank02051997/MovieFinderUsingMVVM-Android) 
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Shashank02051997/MovieFinderUsingMVVM-Android) 
