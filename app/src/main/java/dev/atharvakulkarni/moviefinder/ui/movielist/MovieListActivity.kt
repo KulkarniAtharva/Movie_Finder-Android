@@ -1,4 +1,4 @@
-package dev.atharvakulkarni.moviefinder.ui.home
+package dev.atharvakulkarni.moviefinder.ui.movielist
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -21,16 +21,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.atharvakulkarni.moviefinder.R
-import dev.atharvakulkarni.moviefinder.databinding.ActivityHomeBinding
+import dev.atharvakulkarni.moviefinder.databinding.ActivityMovielistBinding
 import dev.atharvakulkarni.moviefinder.ui.adapter.CustomAdapterMovies
 import dev.atharvakulkarni.moviefinder.ui.moviedetail.MovieDetailScrollingActivity
-import dev.atharvakulkarni.moviefinder.ui.movielist.MovieListActivity
 import dev.atharvakulkarni.moviefinder.util.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class HomeActivity : AppCompatActivity(), KodeinAware
+class MovieListActivity : AppCompatActivity(), KodeinAware
 {
     companion object
     {
@@ -38,44 +37,30 @@ class HomeActivity : AppCompatActivity(), KodeinAware
     }
 
     override val kodein by kodein()
-    private lateinit var dataBind: ActivityHomeBinding
-    private lateinit var viewModel: HomeViewModel
-    private val factory: HomeViewModelFactory by instance()
-   // private lateinit var customAdapterMovies: CustomAdapterMovies
-    private lateinit var searchView: SearchView
+    private lateinit var dataBind: ActivityMovielistBinding
+    private lateinit var viewModel: MovieListViewModel
+    private val factory: MovieListViewModelFactory by instance()
+    private lateinit var customAdapterMovies: CustomAdapterMovies
+
+    private var query : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        dataBind = DataBindingUtil.setContentView(this, R.layout.activity_home)
-        searchView = findViewById(R.id.search_view)
+        dataBind = DataBindingUtil.setContentView(this, R.layout.activity_movielist)
+
+        val intent = getIntent()
+
+        query = intent.getStringExtra("query")
+
         setupViewModel()
-       // setupUI()
-
-
-        search(searchView);
-
-
-
-       // initializeObserver()
-       // handleNetworkChanges()
-        //setupAPICall()
+        setupUI()
+        initializeObserver()
+        handleNetworkChanges()
+        setupAPICall()
     }
 
-   /* override fun onCreateOptionsMenu(menu: Menu): Boolean
-    {
-        menuInflater.inflate(R.menu.search, menu)
-        searchView = menu.findItem(R.id.search).actionView as SearchView
-        searchView.apply {
-            queryHint = "Search"
-            isSubmitButtonEnabled = true
-            onActionViewExpanded()
-        }
-        search(searchView)
-        return true
-    }*/
-
-   /* private fun setupUI()
+    private fun setupUI()
     {
         customAdapterMovies = CustomAdapterMovies()
         dataBind.recyclerViewMovies.apply{
@@ -126,15 +111,17 @@ class HomeActivity : AppCompatActivity(), KodeinAware
 
         //getWindow().setStatusBarColor(Color.WHITE);
 
-        search(searchView);
-    }*/
+       // search(searchView);
+        Toast.makeText(this,query,Toast.LENGTH_SHORT).show()
+        viewModel.searchMovie("sholay")
+    }
 
     private fun setupViewModel()
     {
-        viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(MovieListViewModel::class.java)
     }
 
-    /*private fun initializeObserver()
+    private fun initializeObserver()
     {
         viewModel.movieNameLiveData.observe(this, Observer {
             Log.i("Info", "Movie Name = $it")
@@ -148,36 +135,39 @@ class HomeActivity : AppCompatActivity(), KodeinAware
                 }, 2000)
             }
         })
-    } */
+    }
 
-   /* private fun setupAPICall()
+    private fun setupAPICall()
     {
         viewModel.moviesLiveData.observe(this, Observer { state ->
             when (state)
             {
                 is State.Loading ->
                 {
+                    Toast.makeText(applicationContext,"loading",Toast.LENGTH_LONG)
                     dataBind.recyclerViewMovies.hide()
-                   // dataBind.linearLayoutSearch.hide()
+                    // dataBind.linearLayoutSearch.hide()
                     dataBind.progressBar.show()
                 }
                 is State.Success ->
                 {
+                    Toast.makeText(applicationContext,"sucess",Toast.LENGTH_LONG)
                     dataBind.recyclerViewMovies.show()
-                  //  dataBind.linearLayoutSearch.hide()
+                    //  dataBind.linearLayoutSearch.hide()
                     dataBind.progressBar.hide()
                     customAdapterMovies.setData(state.data)
                 }
                 is State.Error ->
                 {
+                    Toast.makeText(applicationContext,"error",Toast.LENGTH_LONG)
                     dataBind.progressBar.hide()
                     showToast(state.message)
                 }
             }
         })
-    }*/
+    }
 
-    /*private fun handleNetworkChanges()
+    private fun handleNetworkChanges()
     {
         NetworkUtils.getNetworkLiveData(applicationContext).observe(this, Observer { isConnected ->
             if (!isConnected)
@@ -211,9 +201,9 @@ class HomeActivity : AppCompatActivity(), KodeinAware
                 }
             }
         })
-    }*/
+    }
 
-    private fun search(searchView: SearchView)
+    /*private fun search(searchView: SearchView)
     {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener
         {
@@ -221,10 +211,7 @@ class HomeActivity : AppCompatActivity(), KodeinAware
             {
                 dismissKeyboard(searchView)
                 searchView.clearFocus()
-               // viewModel.searchMovie(query)
-
-                new_activity(query);
-
+                viewModel.searchMovie(query)
                 return true
             }
 
@@ -233,13 +220,5 @@ class HomeActivity : AppCompatActivity(), KodeinAware
                 return false
             }
         })
-    }
-
-    fun new_activity(query:String)
-    {
-        val intent = Intent(this,MovieListActivity::class.java)
-
-        intent.putExtra("query",query)
-        startActivity(intent)
-    }
+    }*/
 }

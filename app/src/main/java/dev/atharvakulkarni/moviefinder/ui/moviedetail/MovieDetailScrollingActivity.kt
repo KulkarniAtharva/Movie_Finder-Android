@@ -32,6 +32,7 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
     {
         super.onCreate(savedInstanceState)
         dataBind = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail_scrolling)
+
         setSupportActionBar(toolbar)
         setupUI()
         handleNetworkChanges()
@@ -89,8 +90,7 @@ class MovieDetailScrollingActivity : AppCompatActivity(), KodeinAware
                         dataBind.textWriter.text = "Writer: ${it.writer}"
                         dataBind.textPlot.text = it.plot
                         if (it.ratings.isNotEmpty())
-                            dataBind.textImd.text =
-                                "Internet Movie Database: ${it.ratings[0].value}"
+                            dataBind.textImd.text = "Internet Movie Database: ${it.ratings[0].value}"
                         dataBind.textMetascore.text = "Metascore: ${it.metascore}"
                         dataBind.textImdbRating.text = "IMBD Rating: ${it.imdbrating}"
                     }

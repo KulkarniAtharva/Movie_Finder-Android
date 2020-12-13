@@ -26,7 +26,6 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@+id/toolbar">
 
-
                 <ImageView
                     android:id="@+id/image_poster"
                     android:layout_width="match_parent"
@@ -109,7 +108,6 @@
                             android:textColor="#000000"
                             android:textSize="16sp" />
 
-
                         <TextView
                             android:id="@+id/text_writer"
                             android:layout_width="match_parent"
@@ -160,8 +158,6 @@
                             android:textColor="#000000"
                             android:textSize="16sp" />
                     </LinearLayout>
-
-
                 </androidx.cardview.widget.CardView>
 
                 <ProgressBar
@@ -175,9 +171,6 @@
                     android:layout_marginTop="16dp"
                     android:visibility="gone" />
             </RelativeLayout>
-
         </androidx.core.widget.NestedScrollView>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </layout>

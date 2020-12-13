@@ -5,8 +5,10 @@ import dev.atharvakulkarni.moviefinder.data.network.ApiInterface
 import dev.atharvakulkarni.moviefinder.data.network.NetworkConnectionInterceptor
 import dev.atharvakulkarni.moviefinder.data.repositories.HomeRepository
 import dev.atharvakulkarni.moviefinder.data.repositories.MovieDetailRepository
+import dev.atharvakulkarni.moviefinder.data.repositories.MovieListRepository
 import dev.atharvakulkarni.moviefinder.ui.home.HomeViewModelFactory
 import dev.atharvakulkarni.moviefinder.ui.moviedetail.MovieDetailViewModelFactory
+import dev.atharvakulkarni.moviefinder.ui.movielist.MovieListViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -26,5 +28,7 @@ class MFApplication : Application(), KodeinAware
         bind() from provider { HomeViewModelFactory(instance()) }
         bind() from singleton { MovieDetailRepository(instance()) }
         bind() from provider { MovieDetailViewModelFactory(instance()) }
+        bind() from singleton { MovieListRepository(instance()) }
+        bind() from provider { MovieListViewModelFactory(instance()) }
     }
 }
