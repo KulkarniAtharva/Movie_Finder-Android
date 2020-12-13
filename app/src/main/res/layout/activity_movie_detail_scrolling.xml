@@ -42,7 +42,6 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:title="Title" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout

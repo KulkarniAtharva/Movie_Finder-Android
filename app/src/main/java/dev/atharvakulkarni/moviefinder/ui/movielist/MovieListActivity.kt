@@ -112,8 +112,7 @@ class MovieListActivity : AppCompatActivity(), KodeinAware
         //getWindow().setStatusBarColor(Color.WHITE);
 
        // search(searchView);
-        Toast.makeText(this,query,Toast.LENGTH_SHORT).show()
-        viewModel.searchMovie("sholay")
+        viewModel.searchMovie(query)
     }
 
     private fun setupViewModel()
