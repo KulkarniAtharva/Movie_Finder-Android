@@ -92,7 +92,7 @@ Please fork this repository and contribute back using
 Any contributions, large or small, major features, bug fixes, are welcomed and appreciated
 but will be thoroughly reviewed .
 
-### Contact - Let's become friend
+### 📱 Contact - Let's become friend 🤝
 - [Portfolio Website](https://kulkarniatharva.github.io/)
 - [Github](https://github.com/KulkarniAtharva)
 - [LinkedIn](https://www.linkedin.com/in/atharva-kulkarni-146279187/)
